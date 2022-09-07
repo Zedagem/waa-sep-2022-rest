@@ -8,10 +8,12 @@ import edu.miu.phase3.entity.Course;
 import edu.miu.phase3.entity.Student;
 import edu.miu.phase3.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/student")
 public class StudentController {
@@ -31,6 +33,7 @@ public class StudentController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public void save(@RequestBody StudentDto student) {
         studentService.save(student);
     }
