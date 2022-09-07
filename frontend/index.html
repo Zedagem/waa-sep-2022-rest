@@ -34,7 +34,7 @@
                 <input type="email" name="email" placeholder="Email">
                 <div class="mt-1">
                     <input type="number" name="gpa" placeholder="GPA">
-                    <button>Create Student</button>
+                    <button onclick="create()" >Create Student</button>
                 </div>
                 
             </div>
@@ -55,8 +55,8 @@
         
     }).then(respose => respose.json())
     .then(data => {
-        let table = document.createElement("table")
-        table.setAttribute('class','table')
+        // let table = document.createElement("table")
+        // table.setAttribute('class','table')
         document.getElementById('display').append(JSON.stringify(data))
     })
     .catch(err => console.log(err))
@@ -76,13 +76,38 @@ function search(){
     .catch(err=> console.log(err))
 }
 
-//     fetch('https://example.com/profile', {
-//         method: 'POST', // or 'PUT'
-//         headers: {
-//              'Content-Type': 'application/json',
-//         },
-//      body: JSON.stringify(data),
-// })
+    function create(){
+        let data = {};
+        data['firstName'] = document.querySelector('[name=firstName]').value;
+        data['lastName'] = document.querySelector('[name=lastName]').value;
+        data['email'] = document.querySelector('[name=email]').value;
+        data['gpa'] = document.querySelector('[name=gpa]').value;
+        fetch('http://localhost:8080/student/', {
+        method: 'POST', 
+        headers: {
+             'Content-Type': 'application/json',
+        },
+      body: JSON.stringify(data),
+   }).then(response => {
+    if(response.status == 201){
+        document.getElementById('display').innerHTML="";
+        let h3 = document.createElement('h3');
+        h3.innerText = "Created Succesfully"
+        document.getElementById('display').append(h3);
+    }
+    else{
+        document.getElementById('display').innerHTML="";
+        let h3 = document.createElement('h3');
+        h3.innerText = "Error While Creating"
+        document.getElementById('display').append(h3);
+    }
+   })
+     .catch(err => console.log(err))
+
+    }
+
+  
+
 
   </script>
 </body>
