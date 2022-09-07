@@ -1,6 +1,7 @@
 package edu.miu.phase3.controller;
 
 
+import edu.miu.phase3.dto.CourseDto;
 import edu.miu.phase3.entity.Course;
 import edu.miu.phase3.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,21 +17,21 @@ public class CourseController {
     CourseService courseService;
 
     @PostMapping
-    public void save(@RequestBody Course course){
+    public void save(@RequestBody CourseDto course){
         courseService.save(course);
     }
     @GetMapping
-    public List<Course> courses(){
+    public List<CourseDto> courses(){
       return courseService.findAll();
     }
 
     @GetMapping("/{code}")
-    public Course getByCourseCode(@PathVariable String code){
+    public CourseDto getByCourseCode(@PathVariable String code){
         return courseService.getByCourseCode(code);
     }
 
     @PutMapping("/{id}")
-    public void update(@PathVariable int id, @RequestBody Course course){
+    public void update(@PathVariable int id, @RequestBody CourseDto course){
          courseService.update(id,course);
     }
 
