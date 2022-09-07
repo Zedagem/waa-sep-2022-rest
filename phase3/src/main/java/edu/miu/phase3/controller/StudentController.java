@@ -2,6 +2,8 @@ package edu.miu.phase3.controller;
 
 
 
+import edu.miu.phase3.dto.CourseDto;
+import edu.miu.phase3.dto.StudentDto;
 import edu.miu.phase3.entity.Course;
 import edu.miu.phase3.entity.Student;
 import edu.miu.phase3.service.StudentService;
@@ -19,17 +21,17 @@ public class StudentController {
 
 
     @GetMapping
-    public List<Student> findAll() {
+    public List<StudentDto> findAll() {
         return studentService.findAll();
     }
 
     @GetMapping("/{id}")
-    public Student findById(@PathVariable int id) {
+    public StudentDto findById(@PathVariable int id) {
         return studentService.findById(id);
     }
 
     @PostMapping
-    public void save(@RequestBody Student student) {
+    public void save(@RequestBody StudentDto student) {
         studentService.save(student);
     }
 
@@ -39,19 +41,19 @@ public class StudentController {
     }
 
     @PutMapping({"/{id}"})
-    public void update(@PathVariable int id, @RequestBody Student student) {
+    public void update(@PathVariable int id, @RequestBody StudentDto student) {
         studentService.update(id,student);
     }
 
     // Get student by major
     @GetMapping("/filter")
-   public List<Student> getStudentsByMajor(@RequestParam (required = true) String major ){
+   public List<StudentDto> getStudentsByMajor(@RequestParam (required = true) String major ){
     return studentService.getStudentsByMajor(major);
    }
 
    // Get all the courses of the student with ID
     @GetMapping("/{studentId}/courses")
-    public List<Course> getCoursesByStudentId(@PathVariable int studentId){
+    public List<CourseDto> getCoursesByStudentId(@PathVariable int studentId){
         return studentService.getCoursesByStudentId(studentId);
     }
 
